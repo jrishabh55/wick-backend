@@ -16,7 +16,11 @@ export default class AppProvider {
     // Cleanup, since app is going down
   }
 
-  public ready () {
-    // App is ready
+  public async ready () {
+    const App = await import('@ioc:Adonis/Core/Application')
+
+    if (App.default.environment === 'web') {
+      await import('../start/spotify')
+    }
   }
 }

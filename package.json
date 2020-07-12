@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^2.0.0",
+    "@types/spotify-web-api-node": "^4.0.1",
     "adonis-preset-ts": "^1.0.4",
     "eslint": "^7.4.0",
     "eslint-plugin-adonis": "^1.0.14",
@@ -23,6 +24,7 @@
     "@adonisjs/fold": "^6.0.0",
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "spotify-web-api-node": "^4.0.0"
   }
 }
