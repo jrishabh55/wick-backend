@@ -1,2 +1,2 @@
-import '/config'
+import './config'
 import './oauth'
