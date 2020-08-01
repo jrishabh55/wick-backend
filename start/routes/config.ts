@@ -17,8 +17,7 @@ Route.group(() => {
         netflix: {
           authorizationType: 'loginCookies',
           login: 'https://www.netflix.com/in/login',
-          fetchCSV:
-          'https://www.netflix.com/api/shakti/ve0d6d2cb/viewingactivitycsv',
+          fetchCSV: 'https://www.netflix.com/api/shakti/ve0d6d2cb/viewingactivitycsv',
         },
         spotify: {
           authorizationType: 'serverOAuthQuery',
