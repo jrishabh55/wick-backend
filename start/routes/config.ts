@@ -1,13 +1,14 @@
 import querystring from 'querystring'
 import Route from '@ioc:Adonis/Core/Route'
+import Env from '@ioc:Adonis/Core/Env'
 
 Route.group(() => {
   Route.get('/config/global', async ({ response }) => {
     const qs = querystring.stringify({
-      response_type: 'access_code',
+      response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'user-read-private user-read-email',
-      redirect_uri: `${process.env.domain}/shopify/callback`,
+      redirect_uri: `${Env.get('APP_FRONTEND')}/spotify/callback`,
     })
 
     response.json({
