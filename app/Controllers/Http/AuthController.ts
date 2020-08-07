@@ -3,7 +3,7 @@ import BaseException from 'App/Exceptions/Base'
 import User from 'App/Models/User'
 
 export default class AuthController {
-  public async login ({ request, response, auth }: HttpContextContract) {
+  public async login ({ request, auth }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
 
