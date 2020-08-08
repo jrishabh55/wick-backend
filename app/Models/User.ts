@@ -13,7 +13,7 @@ import Token from './Token'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
-  public id: string
+  public id: number
 
   @column()
   public name?: string
@@ -41,10 +41,5 @@ export default class User extends BaseModel {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
-  }
-
-  @beforeCreate()
-  public static async addUUID (user: User) {
-    user.id = uuid()
   }
 }
