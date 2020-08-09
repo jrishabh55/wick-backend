@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon'
-import { v4 as uuid } from 'uuid'
 import Hash from '@ioc:Adonis/Core/Hash'
 import {
   column,
@@ -7,7 +6,6 @@ import {
   BaseModel,
   HasOne,
   hasOne,
-  beforeCreate,
 } from '@ioc:Adonis/Lucid/Orm'
 import Token from './Token'
 
