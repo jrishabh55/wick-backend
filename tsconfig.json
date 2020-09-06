@@ -18,6 +18,9 @@
       "Contracts/*": [
         "./contracts/*"
       ],
+      "start/*": [
+        "./start/*"
+      ],
       "Database/*": [
         "./database/*"
       ]
