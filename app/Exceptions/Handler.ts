@@ -33,19 +33,20 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   private async handleErrorWithApi (error: any, ctx: HttpContextContract) {
-    if (process.env.NODE_ENV === 'development') {
-      console.log(error)
-      ctx.response.status(error.status || 500).json({
-        status: 'error',
-        error : {
-          message: error.message,
-          stack: error.stack,
-          code: error.code,
-        },
-      })
-      return
+    const { messages = {}, message, status, code, flashToSession, ...rest } = error
+
+    const errorMessage = message.split(':')[1]?.trim()
+
+    let res = {
+      status: 'error',
+      code,
+      errors : messages.errors || [{ message: errorMessage }],
     }
 
-    ctx.response.status(error.status).json({ status: 'error', error: { message: error.message, code: error.code } })
+    if (process.env.NODE_ENV === 'development') {
+      res = { ...res, ...rest }
+    }
+
+    ctx.response.status(status || 500).json(res)
   }
 }
