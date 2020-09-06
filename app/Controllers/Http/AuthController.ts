@@ -1,13 +1,13 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import BaseException from 'App/Exceptions/Base'
 import User from 'App/Models/User'
+import { registerSchema } from 'App/Schema/user'
 
 export default class AuthController {
   public async login ({ request, auth }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
 
-    const token = await auth.use('api').attempt(email, password)
     try {
       const token = await auth.use('api').attempt(email, password)
       return { status: 'ok', data: { ...token.toJSON() } }
@@ -21,15 +21,17 @@ export default class AuthController {
         throw new BaseException('Invalid password.', 401, error.code)
       }
     }
-
-    return { status: 'ok', data: { ...token.toJSON() } }
   }
 
   public async register ({ request }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
+    const validated = await request.validate({
+      schema: registerSchema,
+    })
+
+    const { username, name, email, password } = validated
+
     try {
-      const user = await User.create({ email, password })
+      const user = await User.create({ username, name, email, password })
       return { status: 'ok', data: user.toJSON() }
     } catch (error) {
       throw new BaseException('Invalid request.', 400, error.code)

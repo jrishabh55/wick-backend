@@ -17,6 +17,12 @@ export default class User extends BaseModel {
   public name?: string
 
   @column()
+  public username: string
+
+  @column()
+  public photo?: string
+
+  @column()
   public email: string
 
   @column({ serializeAs: null })
@@ -38,6 +44,9 @@ export default class User extends BaseModel {
   public static async hashPassword (user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
+    }
+    if (user.$dirty.username) {
+      user.username = user.username.toLocaleLowerCase()
     }
   }
 }
