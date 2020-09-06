@@ -8,13 +8,13 @@
     "lint": "eslint . --ext=.ts"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^2.0.0",
+    "@adonisjs/assembler": "^2.1.5",
     "@types/spotify-web-api-node": "^4.0.1",
-    "@types/uuid": "^8.0.1",
+    "@types/uuid": "^8.3.0",
     "adonis-preset-ts": "^1.0.4",
-    "eslint": "^7.4.0",
-    "eslint-plugin-adonis": "^1.0.14",
-    "pino-pretty": "^4.0.0",
+    "eslint": "^7.8.1",
+    "eslint-plugin-adonis": "^1.0.15",
+    "pino-pretty": "^4.2.1",
     "sqlite3": "^5.0.0",
     "typescript": "^3.9.6",
     "youch": "^2.0.10",
