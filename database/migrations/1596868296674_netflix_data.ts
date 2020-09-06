@@ -8,7 +8,7 @@ export default class NetflixData extends BaseSchema {
       table.increments('id')
       table.string('title')
       table.date('last_watched')
-      table.integer('user_id')
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamps(true)
     })
   }

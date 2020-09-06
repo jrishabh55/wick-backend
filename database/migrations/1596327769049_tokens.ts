@@ -8,7 +8,7 @@ export default class Tokens extends BaseSchema {
       table.increments('id')
       table.enum('type', ['spotify', 'netflix']).notNullable()
       table.text('token').notNullable()
-      table.integer('user_id')
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamps(true)
     })
   }
