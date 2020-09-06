@@ -4,10 +4,13 @@ import {
   column,
   beforeSave,
   BaseModel,
-  HasOne,
+  hasMany,
+  HasMany,
   hasOne,
+  HasOne,
 } from '@ioc:Adonis/Lucid/Orm'
 import Token from './Token'
+import Spotify from './Spotify'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -31,8 +34,11 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken?: string
 
-  @hasOne(() => Token)
-  public token: HasOne<typeof Token>
+  @hasMany(() => Token)
+  public token: HasMany<typeof Token>
+
+  @hasOne(() => Spotify)
+  public spotify: HasOne<typeof Spotify>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
