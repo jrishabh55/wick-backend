@@ -35,7 +35,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   private async handleErrorWithApi (error: any, ctx: HttpContextContract) {
     const { messages = {}, message, status, code, flashToSession, ...rest } = error
 
-    const errorMessage = message.split(':')[1]?.trim()
+    const errorMessage = message.split(':')[1]?.trim() || message
 
     let res = {
       status: 'error',
@@ -47,6 +47,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       res = { ...res, ...rest }
     }
 
-    ctx.response.status(status || 500).json(res)
+    ctx.response.status(status || rest.statusCode || 500).json(res)
   }
 }
