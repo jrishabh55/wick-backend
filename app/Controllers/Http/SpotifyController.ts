@@ -1,34 +1,27 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import BaseException from 'App/Exceptions/Base'
 import Token from 'App/Models/Token'
 import spotifyApi from '../../../start/spotify'
 
 export default class SpotifyController {
-  public async save ({ request, auth, response }: HttpContextContract) {
+  public async save ({ request, auth }: HttpContextContract) {
     await auth.authenticate()
     if (auth.user) {
       const $token = request.input('token')
       const search: any = { user_id: auth.user.id, type: 'spotify' }
-      const newObj: any = { user_id: auth.user.id, type: 'spotify', token: $token }
-      // const token = await Token.updateOrCreate(search, newObj)
 
       // spotifyApi.setAccessToken($token)
 
-      console.log($token)
+      const res = await spotifyApi.authorizationCodeGrant($token)
 
-      spotifyApi.authorizationCodeGrant($token)
-        .then((res) => {
-          console.log(res)
-          response.json(res)
-        }).catch(err => {
-          console.log({err})
-          response.json(err)
-        })
+      if (res.statusCode !== 200) {
+        throw new BaseException('Invalid Spotify auth token')
+      }
 
-      // return { data: $token }
+      const tokenObj: any = { user_id: auth.user.id, type: 'spotify', ...res.body }
+      const token = await Token.updateOrCreate(search, tokenObj)
 
-      // console.log(token)
-
-      // return { data: token.toJSON(), status: 'ok' }
+      return { data: token.toJSON(), status: 'ok' }
     }
   }
 
