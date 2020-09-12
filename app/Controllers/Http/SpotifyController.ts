@@ -25,6 +25,23 @@ export default class SpotifyController {
     }
   }
 
+  public async getMe ({ auth }: HttpContextContract) {
+    await auth.authenticate()
+    const user = auth.user as User
+    await user.preload('token')
+    const spotifyObj = user.token.find(tk => tk.type === 'spotify')
+    if (!spotifyObj) {
+      throw new Error('Spotify token doesn\'t exist')
+    }
+    spotifyApi.setCredentials(spotifyObj.getCredentials())
+    const spotifyProfileData = (await spotifyApi.getMe()).body as any
+    const data = await Spotify.updateOrCreate({
+      userId: user.id,
+      spotifyId: spotifyProfileData.id,
+    }, spotifyProfileData)
+    return { data, status: 'ok' }
+  }
+
   public async getSongs ({ auth }: HttpContextContract) {
     await auth.authenticate()
     const user = auth.user
