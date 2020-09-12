@@ -13,19 +13,19 @@ export default class Token extends BaseModel {
   public token: string
 
   @column()
-  public user_id: number
+  public userId: number
 
   @column()
-  public access_token: string
+  public accessToken: string
 
   @column()
-  public refresh_token: string
+  public refreshToken: string
 
   @column()
-  public expires_in: number
+  public expiresIn: number
 
   @column()
-  public token_type: string
+  public tokenType: string
 
   @column()
   public scope: string
@@ -38,4 +38,12 @@ export default class Token extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  public getCredentials () {
+    const { accessToken, refreshToken } = this
+    return {
+      accessToken,
+      refreshToken,
+    }
+  }
 }
