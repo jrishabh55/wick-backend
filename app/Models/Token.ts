@@ -15,6 +15,21 @@ export default class Token extends BaseModel {
   @column()
   public user_id: number
 
+  @column()
+  public access_token: string
+
+  @column()
+  public refresh_token: string
+
+  @column()
+  public expires_in: number
+
+  @column()
+  public token_type: string
+
+  @column()
+  public scope: string
+
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
