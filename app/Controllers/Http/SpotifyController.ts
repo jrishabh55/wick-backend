@@ -3,6 +3,7 @@ import BaseException from 'App/Exceptions/Base'
 import Spotify from 'App/Models/Spotify'
 import Token from 'App/Models/Token'
 import User from 'App/Models/User'
+import { serializeTracks } from 'App/utils'
 import spotifyApi from '../../../start/spotify'
 
 export default class SpotifyController {
@@ -68,7 +69,9 @@ export default class SpotifyController {
     }
     const data = await spotifyApi.getMyRecentlyPlayedTracks({ before, after, limit: 50 })
 
-    return { data: data.body, status: 'ok' }
+    const responseData = serializeTracks(data.body)
+
+    return { data: responseData, status: 'ok' }
   }
 
   public async getPlaylist ({ auth }: HttpContextContract) {
