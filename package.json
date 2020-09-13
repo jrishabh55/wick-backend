@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^2.1.5",
+    "@types/lodash": "^4.14.161",
     "@types/spotify-web-api-node": "^4.0.1",
     "@types/uuid": "^8.3.0",
     "adonis-preset-ts": "^1.0.4",
@@ -26,6 +27,7 @@
     "@adonisjs/core": "^5.0.0-preview-rc",
     "@adonisjs/fold": "^6.0.0",
     "@adonisjs/lucid": "^8.2.2",
+    "lodash": "^4.17.20",
     "mysql": "^2.18.1",
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
