@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import spotifyApi from 'start/spotify'
 import BaseException from 'App/Exceptions/Base'
 import Spotify from 'App/Models/Spotify'
 import Token from 'App/Models/Token'
