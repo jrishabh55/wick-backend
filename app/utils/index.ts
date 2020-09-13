@@ -23,3 +23,13 @@ export const serializeTracks = (tracks: SpotifyApi.UsersRecentlyPlayedTracksResp
     cursors: tracks.cursors,
   }
 }
+
+export const serializePlaylists = (playlists: SpotifyApi.ListOfCurrentUsersPlaylistsResponse) => {
+  return {
+    items: playlists.items,
+    total: playlists.total,
+    next: playlists.next,
+    previous: playlists.previous,
+    limit: playlists.limit,
+  }
+}
