@@ -43,7 +43,7 @@ export default class Token extends BaseModel {
   public async getCredentials () {
     const { accessToken, refreshToken } = this
     if (this.type === 'spotify') {
-      const interval = this.updatedAt.diffNow('minutes').minutes
+      const interval = this.updatedAt.diffNow('seconds').seconds
 
       if (interval + this.expiresIn >= 0) {
         return {
