@@ -1,6 +1,8 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import BaseException from 'App/Exceptions/Base'
+import Spotify from 'App/Models/Spotify'
 import Token from 'App/Models/Token'
+import User from 'App/Models/User'
 import spotifyApi from '../../../start/spotify'
 
 export default class SpotifyController {
@@ -9,9 +11,6 @@ export default class SpotifyController {
     if (auth.user) {
       const $token = request.input('token')
       const search: any = { user_id: auth.user.id, type: 'spotify' }
-
-      // spotifyApi.setAccessToken($token)
-
       const res = await spotifyApi.authorizationCodeGrant($token)
 
       if (res.statusCode !== 200) {
@@ -33,7 +32,7 @@ export default class SpotifyController {
     if (!spotifyObj) {
       throw new Error('Spotify token doesn\'t exist')
     }
-    spotifyApi.setCredentials(spotifyObj.getCredentials())
+    spotifyApi.setCredentials(await spotifyObj.getCredentials())
     const spotifyProfileData = (await spotifyApi.getMe()).body as any
     const data = await Spotify.updateOrCreate({
       userId: user.id,
@@ -42,17 +41,54 @@ export default class SpotifyController {
     return { data, status: 'ok' }
   }
 
-  public async getSongs ({ auth }: HttpContextContract) {
+  public async getSongs ({ request, auth }: HttpContextContract) {
     await auth.authenticate()
     const user = auth.user
-    await user?.preload('token')
-    if (user) {
-      const spotifyObj = user.token.find(tk => tk.type === 'spotify')
-      if (spotifyObj) {
-        spotifyApi.setAccessToken(spotifyObj?.token)
-
-        spotifyApi.refreshAccessToken()
-      }
+    if (!user) {
+      return
     }
+
+    const after = request.input('after', undefined)
+    const before = request.input('before', undefined)
+    const playlistId = request.input('playlistId', undefined)
+
+    await user.preload('token')
+
+    const spotifyObj = user.token.find(tk => tk.type === 'spotify')
+    if (!spotifyObj) {
+      throw new BaseException('Spotify is not connected.')
+    }
+
+    spotifyApi.setCredentials(await spotifyObj.getCredentials())
+
+    if (playlistId) {
+      const data = await spotifyApi.getPlaylistTracks(playlistId)
+
+      return { data: data.body, status: 'ok' }
+    }
+    const data = await spotifyApi.getMyRecentlyPlayedTracks({ before, after, limit: 50 })
+
+    return { data: data.body, status: 'ok' }
+  }
+
+  public async getPlaylist ({ auth }: HttpContextContract) {
+    await auth.authenticate()
+    const user = auth.user
+    if (!user) {
+      return
+    }
+
+    await user.preload('token')
+
+    const spotifyObj = user.token.find(tk => tk.type === 'spotify')
+    if (!spotifyObj) {
+      throw new BaseException('Spotify is not connected.')
+    }
+
+    spotifyApi.setCredentials(await spotifyObj.getCredentials())
+
+    const data = await spotifyApi.getUserPlaylists()
+
+    return { data: data.body, status: 'ok' }
   }
 }
