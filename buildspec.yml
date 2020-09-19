@@ -18,6 +18,9 @@ phases:
       - yarn build --production
   post_build:
     commands:
+      - echo building production packages...
+      - cd build
+      - npm install --production
       - echo Build completed on `date`
 artifacts:
     files:
