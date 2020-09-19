@@ -14,15 +14,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Compiling the Node.js code
-      - yarn build --production
   post_build:
     commands:
       - echo building production packages...
-      - cd build
-      - npm install --production
       - echo Build completed on `date`
 artifacts:
     files:
       - '**/*'
-    base-directory: build
