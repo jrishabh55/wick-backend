@@ -1,5 +1,9 @@
 import { pick } from 'lodash'
 
+const serializePaginationItems = (item: object, extra: string[] = []) => {
+  return pick(item, ['total', 'limit', 'next', 'previous', ...extra])
+}
+
 export const serializeArtistObj = (artist: SpotifyApi.ArtistObjectSimplified) => {
   return pick(artist, ['href', 'id', 'name', 'uri', 'type'])
 }
@@ -31,19 +35,10 @@ export const serializePlaylistTrackResponse = (tracks: SpotifyApi.PlaylistTrackR
         ...serializeTrack(track),
       }
     }),
-    total: tracks.total,
-    limit: tracks.limit,
-    next: tracks.next,
-    previous: tracks.previous,
+    ...serializePaginationItems(tracks),
   }
 }
 
 export const serializePlaylists = (playlists: SpotifyApi.ListOfCurrentUsersPlaylistsResponse) => {
-  return {
-    items: playlists.items,
-    total: playlists.total,
-    next: playlists.next,
-    previous: playlists.previous,
-    limit: playlists.limit,
-  }
+  return serializePaginationItems(playlists, ['total', 'limit', 'next', 'previous', 'items'])
 }
