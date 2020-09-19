@@ -15,7 +15,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the Node.js code
-      - yarn build
+      - yarn build --production
   post_build:
     commands:
       - echo Build completed on `date`
