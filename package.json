@@ -7,6 +7,9 @@
     "start": "node ace serve --watch",
     "lint": "eslint . --ext=.ts"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "devDependencies": {
     "@adonisjs/assembler": "^2.1.5",
     "@types/lodash": "^4.14.161",
