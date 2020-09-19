@@ -8,7 +8,7 @@
     "lint": "eslint . --ext=.ts"
   },
   "engines": {
-    "node": ">=v12.18.0"
+    "node": "v12.18.0"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^2.1.5",
