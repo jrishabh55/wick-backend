@@ -7,8 +7,10 @@ COPY . .
 RUN yarn
 RUN yarn build --prod
 RUN mkdir build/tmp
-RUN touch build/tmp/db.sqlite3
-RUN cd build && node ace migration:run
+RUN cd build
+
+RUN export NODE_ENV="production"
+RUN node ace migration:run
 
 EXPOSE 3333
 
