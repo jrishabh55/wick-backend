@@ -5,8 +5,18 @@ export default class NetflixController {
   public async save ({ request, auth }: HttpContextContract) {
     await auth.authenticate()
 
-    const items = request.post()
-      .map((it: object) => ({ ...it, user_id: auth.user?.id}))
+    await auth.user?.preload('token')
+
+    if (!auth.user?.token.find((tk) => tk.type === 'netflix')) {
+      await auth.user?.token.client.create({
+        type: 'netflix',
+        accessToken: 'null',
+      })
+    }
+
+    const items = request
+      .post()
+      .map((it: object) => ({ ...it, user_id: auth.user?.id }))
 
     await Netflix.createMany(items)
 
