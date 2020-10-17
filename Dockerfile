@@ -4,8 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN yarn
-RUN yarn build --prod
+RUN npm i
+RUN npm run build --prod
 RUN mkdir build/tmp
 RUN cd build
 
