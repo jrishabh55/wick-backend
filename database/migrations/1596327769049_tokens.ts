@@ -12,6 +12,7 @@ export default class Tokens extends BaseSchema {
       table.integer('expires_in').nullable()
       table.text('token_type').nullable()
       table.text('scope').nullable()
+      table.boolean('status').defaultTo(true)
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.timestamps(true)
     })

@@ -31,6 +31,9 @@ export default class Token extends BaseModel {
   @column()
   public scope: string
 
+  @column()
+  public status: boolean
+
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
@@ -40,7 +43,7 @@ export default class Token extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public async getCredentials () {
+  public async getCredentials() {
     const { accessToken, refreshToken } = this
     if (this.type === 'spotify') {
       const interval = this.updatedAt.diffNow('seconds').seconds
@@ -52,7 +55,10 @@ export default class Token extends BaseModel {
         }
       }
 
-      spotifyApi.setCredentials({ accessToken: this.accessToken, refreshToken: this.refreshToken })
+      spotifyApi.setCredentials({
+        accessToken: this.accessToken,
+        refreshToken: this.refreshToken,
+      })
       const tokenRes = (await spotifyApi.refreshAccessToken()).body
       this.accessToken = tokenRes.access_token
       this.expiresIn = tokenRes.expires_in
