@@ -10,7 +10,12 @@ export default class AuthController {
 
     try {
       const token = await auth.use('api').attempt(email, password)
-      return { status: 'ok', data: { ...token.toJSON() } }
+      const connectedApps = auth?.user?.token?.map(({ type }) => type) || []
+
+      return {
+        status: 'ok',
+        data: { ...token.toJSON(), user: auth?.user?.toJSON(), connectedApps },
+      }
     } catch (error) {
       if (error.code === 'E_INVALID_AUTH_UID') {
         // unable to find user using email address
