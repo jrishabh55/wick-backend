@@ -11,6 +11,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import Token from './Token'
 import Spotify from './Spotify'
+import Connection from './Connection'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -36,6 +37,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Token)
   public token: HasMany<typeof Token>
+
+  @hasMany(() => Connection)
+  public connection: HasMany<typeof Connection>
 
   @hasOne(() => Spotify)
   public spotify: HasOne<typeof Spotify>
