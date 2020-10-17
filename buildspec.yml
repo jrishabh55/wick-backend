@@ -4,13 +4,10 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-    commands:
-      - echo Installing Yarn...
-      - npm install -g yarn
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - yarn install
+      - npm i install
   build:
     commands:
       - echo Build started on `date`
