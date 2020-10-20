@@ -74,7 +74,7 @@ export default class UsersController {
         }),
       }
 
-      cards.push(recentSongsCard, recentSongsData)
+      cards.push(recentSongsCard)
     }
 
     // const netflixObj = user.token.find((tk) => tk.type === 'netflix')
