@@ -1,5 +1,6 @@
 {
-  "extends": [
-    "plugin:adonis/typescriptApp"
-  ]
+  "extends": ["plugin:adonis/typescriptApp"],
+  "rules": {
+    "max-len": ["error", { "code": 140, "tabWidth": 2 }]
+  }
 }
