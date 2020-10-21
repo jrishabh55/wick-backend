@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Netflix from 'App/Models/Netflix'
+import Token from 'App/Models/Token'
 
 export default class NetflixController {
   public async save ({ request, auth }: HttpContextContract) {
@@ -8,7 +9,8 @@ export default class NetflixController {
     await auth.user?.preload('token')
 
     if (!auth.user?.token.find((tk) => tk.type === 'netflix')) {
-      await auth.user?.token.client.create({
+      await Token.create({
+        userId: auth?.user?.id,
         type: 'netflix',
         accessToken: 'null',
       })
