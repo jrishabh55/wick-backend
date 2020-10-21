@@ -16,7 +16,9 @@ export default class ConfigsController {
           authorizationType: 'serverOAuthQuery',
           oAuthUrl: getOAuthUrl(),
           successQueryParameter: 'code',
-          failureQueryParameter: '',
+          failureQueryParameter: 'error',
+          saveTokenUrl: '/api/v1/spotify',
+          saveTokenUrlMethod: 'POST',
         },
       },
     }
