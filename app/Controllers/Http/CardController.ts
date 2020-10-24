@@ -79,6 +79,6 @@ export default class UsersController {
 
     // const netflixObj = user.token.find((tk) => tk.type === 'netflix')
 
-    return cards
+    return { status: 'success', data: { cards } }
   }
 }
