@@ -18,7 +18,7 @@ export default class Spotify extends BaseSchema {
       table.string('spotify_href')
       table.string('image')
       table.string('product')
-      table.dateTime('birthdate')
+      table.dateTime('birth_date')
       table.timestamps(true)
     })
   }

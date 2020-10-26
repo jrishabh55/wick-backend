@@ -18,7 +18,8 @@ interface SpotifyMe {
     width?: number
   }[],
   explicit_content: any
-  href: string
+  href: string,
+  birthdate: string,
 }
 
 export default class Spotify extends BaseModel {
@@ -37,7 +38,7 @@ export default class Spotify extends BaseModel {
   public country: string
 
   @column()
-  public birthdate: DateTime
+  public birthDate: DateTime
 
   @column()
   public spotifyId: string
@@ -84,6 +85,7 @@ export default class Spotify extends BaseModel {
       followers,
       images = [],
       id,
+      birthdate,
       ...spotifyUser
     } = data
 
@@ -94,6 +96,7 @@ export default class Spotify extends BaseModel {
       followers: followers?.total || 0,
       followersHref: followers?.href || null,
       spotifyHref: href,
+      birthDate: birthdate,
     }
   }
 
