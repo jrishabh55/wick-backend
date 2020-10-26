@@ -16,6 +16,7 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   constructor () {
@@ -43,7 +44,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       errors : messages.errors || [{ message: errorMessage }],
     }
 
-    if (process.env.NODE_ENV === 'development') {
+    if (Env.get('NODE_ENV', 'development') === 'development') {
       res = { ...res, ...rest }
     }
 
