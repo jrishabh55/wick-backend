@@ -31,7 +31,7 @@
     "@adonisjs/auth": "^4.2.4",
     "@adonisjs/core": "^5.0.0-preview-rc",
     "@adonisjs/fold": "^6.0.0",
-    "@adonisjs/lucid": "^8.2.2",
+    "@adonisjs/lucid": "^18.3.0",
     "lodash": "^4.17.20",
     "mysql": "^2.18.1",
     "proxy-addr": "^2.0.6",
